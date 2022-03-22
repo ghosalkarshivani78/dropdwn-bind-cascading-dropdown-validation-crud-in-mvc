@@ -1,0 +1,45 @@
+﻿
+@model IEnumerable<MvcEntityframe.Models.person>
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<div class="container mt-5">
+@Html.ActionLink("Create", "Create", "Home")
+<div class="container">
+<table border="1">
+<tr>
+<th>id</th>
+<th>First Name</th>
+<th>Last Name</th>
+<th>Email</th>
+<th>Address</th>
+<th>State</th>
+<th>City</th>
+<th>Number</th>
+<th>Edit</th>
+<th>Delete</th>
+</tr>
+@foreach (var i in Model)
+{
+    <tr>
+     <td>@i.id</td>
+     <td>@i.firstname</td>
+     <td>@i.lastname</td>
+     <td>@i.email</td>
+     <td>@i.address</td>
+     <td>@i.stateid</td>
+     <td>@i.cityid</td>
+    <td>@i.number</td>
+  
+    <td><button class="btn btn-success">@Html.ActionLink("Edit", "Edit", "Home", new { id = i.id }, null)</button></td>
+    <td><button class="btn btn-danger">@Html.ActionLink("Delete", "Delete", "Home", new { id = i.id }, null)</button></td>
+    </tr>
+}
+
+</table>
+</div>
+</div>
+

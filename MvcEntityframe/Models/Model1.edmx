@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="testModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="testModelStoreContainer">
+          <EntitySet Name="city1" EntityType="testModel.Store.city1" store:Type="Tables" Schema="test" />
+          <EntitySet Name="states" EntityType="testModel.Store.states" store:Type="Tables" Schema="test" />
+          <EntitySet Name="userstate" EntityType="testModel.Store.userstate" store:Type="Tables" Schema="test" />
+          <AssociationSet Name="city1_ibfk_1" Association="testModel.Store.city1_ibfk_1">
+            <End Role="states" EntitySet="states" />
+            <End Role="city1" EntitySet="city1" />
+          </AssociationSet>
+          <AssociationSet Name="userstate_ibfk_1" Association="testModel.Store.userstate_ibfk_1">
+            <End Role="states" EntitySet="states" />
+            <End Role="userstate" EntitySet="userstate" />
+          </AssociationSet>
+          <AssociationSet Name="userstate_ibfk_2" Association="testModel.Store.userstate_ibfk_2">
+            <End Role="city1" EntitySet="city1" />
+            <End Role="userstate" EntitySet="userstate" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="city1">
+          <Key>
+            <PropertyRef Name="cityid" />
+          </Key>
+          <Property Name="cityid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="cityname" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="stateid" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="states">
+          <Key>
+            <PropertyRef Name="stateid" />
+          </Key>
+          <Property Name="stateid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="statename" Type="varchar" Nullable="false" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="userstate">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="lastname" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="email" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="address" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="stateid" Type="int" Nullable="false" />
+          <Property Name="cityid" Type="int" Nullable="false" />
+          <Property Name="number" Type="varchar" Nullable="false" MaxLength="200" />
+        </EntityType>
+        <Association Name="city1_ibfk_1">
+          <End Role="states" Type="testModel.Store.states" Multiplicity="1" />
+          <End Role="city1" Type="testModel.Store.city1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="states">
+              <PropertyRef Name="stateid" />
+            </Principal>
+            <Dependent Role="city1">
+              <PropertyRef Name="stateid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="userstate_ibfk_1">
+          <End Role="states" Type="testModel.Store.states" Multiplicity="1" />
+          <End Role="userstate" Type="testModel.Store.userstate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="states">
+              <PropertyRef Name="stateid" />
+            </Principal>
+            <Dependent Role="userstate">
+              <PropertyRef Name="stateid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="userstate_ibfk_2">
+          <End Role="city1" Type="testModel.Store.city1" Multiplicity="1" />
+          <End Role="userstate" Type="testModel.Store.userstate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="city1">
+              <PropertyRef Name="cityid" />
+            </Principal>
+            <Dependent Role="userstate">
+              <PropertyRef Name="cityid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="testModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="testEntities3" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="city1" EntityType="testModel.city1" />
+          <EntitySet Name="states" EntityType="testModel.state" />
+          <EntitySet Name="userstates" EntityType="testModel.userstate" />
+          <AssociationSet Name="city1_ibfk_1" Association="testModel.city1_ibfk_1">
+            <End Role="states" EntitySet="states" />
+            <End Role="city1" EntitySet="city1" />
+          </AssociationSet>
+          <AssociationSet Name="userstate_ibfk_2" Association="testModel.userstate_ibfk_2">
+            <End Role="city1" EntitySet="city1" />
+            <End Role="userstate" EntitySet="userstates" />
+          </AssociationSet>
+          <AssociationSet Name="userstate_ibfk_1" Association="testModel.userstate_ibfk_1">
+            <End Role="states" EntitySet="states" />
+            <End Role="userstate" EntitySet="userstates" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="city1">
+          <Key>
+            <PropertyRef Name="cityid" />
+          </Key>
+          <Property Name="cityid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cityname" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="stateid" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="state" Relationship="testModel.city1_ibfk_1" FromRole="city1" ToRole="states" />
+          <NavigationProperty Name="userstates" Relationship="testModel.userstate_ibfk_2" FromRole="city1" ToRole="userstate" />
+        </EntityType>
+        <EntityType Name="state">
+          <Key>
+            <PropertyRef Name="stateid" />
+          </Key>
+          <Property Name="stateid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="statename" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="city1" Relationship="testModel.city1_ibfk_1" FromRole="states" ToRole="city1" />
+          <NavigationProperty Name="userstates" Relationship="testModel.userstate_ibfk_1" FromRole="states" ToRole="userstate" />
+        </EntityType>
+        <EntityType Name="userstate">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="lastname" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="address" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="stateid" Type="Int32" Nullable="false" />
+          <Property Name="cityid" Type="Int32" Nullable="false" />
+          <Property Name="number" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="city1" Relationship="testModel.userstate_ibfk_2" FromRole="userstate" ToRole="city1" />
+          <NavigationProperty Name="state" Relationship="testModel.userstate_ibfk_1" FromRole="userstate" ToRole="states" />
+        </EntityType>
+        <Association Name="city1_ibfk_1">
+          <End Role="states" Type="testModel.state" Multiplicity="1" />
+          <End Role="city1" Type="testModel.city1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="states">
+              <PropertyRef Name="stateid" />
+            </Principal>
+            <Dependent Role="city1">
+              <PropertyRef Name="stateid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="userstate_ibfk_2">
+          <End Role="city1" Type="testModel.city1" Multiplicity="1" />
+          <End Role="userstate" Type="testModel.userstate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="city1">
+              <PropertyRef Name="cityid" />
+            </Principal>
+            <Dependent Role="userstate">
+              <PropertyRef Name="cityid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="userstate_ibfk_1">
+          <End Role="states" Type="testModel.state" Multiplicity="1" />
+          <End Role="userstate" Type="testModel.userstate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="states">
+              <PropertyRef Name="stateid" />
+            </Principal>
+            <Dependent Role="userstate">
+              <PropertyRef Name="stateid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="testModelStoreContainer" CdmEntityContainer="testEntities3">
+          <EntitySetMapping Name="city1">
+            <EntityTypeMapping TypeName="testModel.city1">
+              <MappingFragment StoreEntitySet="city1">
+                <ScalarProperty Name="cityid" ColumnName="cityid" />
+                <ScalarProperty Name="cityname" ColumnName="cityname" />
+                <ScalarProperty Name="stateid" ColumnName="stateid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="states">
+            <EntityTypeMapping TypeName="testModel.state">
+              <MappingFragment StoreEntitySet="states">
+                <ScalarProperty Name="stateid" ColumnName="stateid" />
+                <ScalarProperty Name="statename" ColumnName="statename" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userstates">
+            <EntityTypeMapping TypeName="testModel.userstate">
+              <MappingFragment StoreEntitySet="userstate">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="stateid" ColumnName="stateid" />
+                <ScalarProperty Name="cityid" ColumnName="cityid" />
+                <ScalarProperty Name="number" ColumnName="number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Model1">
+        <EntityTypeShape EntityType="testModel.city1" Width="1.5" PointX="3" PointY="1.5" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="testModel.state" Width="1.5" PointX="0.75" PointY="1.5" Height="1.7879850260416657" IsExpanded="true" />
+        <EntityTypeShape EntityType="testModel.userstate" Width="1.5" PointX="5.25" PointY="1" Height="2.9417936197916656" IsExpanded="true" />
+        <AssociationConnector Association="testModel.city1_ibfk_1" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="2.3939925130208328" />
+          <ConnectorPoint PointX="3" PointY="2.3939925130208328" />
+        </AssociationConnector>
+        <AssociationConnector Association="testModel.userstate_ibfk_2" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="2.4901432291666667" />
+          <ConnectorPoint PointX="5.25" PointY="2.4901432291666667" />
+        </AssociationConnector>
+        <AssociationConnector Association="testModel.userstate_ibfk_1" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.5" PointY="3.2879850260416656" />
+          <ConnectorPoint PointX="1.5" PointY="3.7422900390624996" />
+          <ConnectorPoint PointX="5.25" PointY="3.7422900390624996" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

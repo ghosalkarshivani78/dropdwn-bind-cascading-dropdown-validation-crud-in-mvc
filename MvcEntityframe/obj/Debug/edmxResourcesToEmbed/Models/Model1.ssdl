@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="testModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="testModelStoreContainer">
+    <EntitySet Name="city1" EntityType="testModel.Store.city1" store:Type="Tables" Schema="test" />
+    <EntitySet Name="states" EntityType="testModel.Store.states" store:Type="Tables" Schema="test" />
+    <EntitySet Name="userstate" EntityType="testModel.Store.userstate" store:Type="Tables" Schema="test" />
+    <AssociationSet Name="city1_ibfk_1" Association="testModel.Store.city1_ibfk_1">
+      <End Role="states" EntitySet="states" />
+      <End Role="city1" EntitySet="city1" />
+    </AssociationSet>
+    <AssociationSet Name="userstate_ibfk_1" Association="testModel.Store.userstate_ibfk_1">
+      <End Role="states" EntitySet="states" />
+      <End Role="userstate" EntitySet="userstate" />
+    </AssociationSet>
+    <AssociationSet Name="userstate_ibfk_2" Association="testModel.Store.userstate_ibfk_2">
+      <End Role="city1" EntitySet="city1" />
+      <End Role="userstate" EntitySet="userstate" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="city1">
+    <Key>
+      <PropertyRef Name="cityid" />
+    </Key>
+    <Property Name="cityid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="cityname" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="stateid" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="states">
+    <Key>
+      <PropertyRef Name="stateid" />
+    </Key>
+    <Property Name="stateid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="statename" Type="varchar" Nullable="false" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="userstate">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="firstname" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="lastname" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="email" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="address" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="stateid" Type="int" Nullable="false" />
+    <Property Name="cityid" Type="int" Nullable="false" />
+    <Property Name="number" Type="varchar" Nullable="false" MaxLength="200" />
+  </EntityType>
+  <Association Name="city1_ibfk_1">
+    <End Role="states" Type="testModel.Store.states" Multiplicity="1" />
+    <End Role="city1" Type="testModel.Store.city1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="states">
+        <PropertyRef Name="stateid" />
+      </Principal>
+      <Dependent Role="city1">
+        <PropertyRef Name="stateid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="userstate_ibfk_1">
+    <End Role="states" Type="testModel.Store.states" Multiplicity="1" />
+    <End Role="userstate" Type="testModel.Store.userstate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="states">
+        <PropertyRef Name="stateid" />
+      </Principal>
+      <Dependent Role="userstate">
+        <PropertyRef Name="stateid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="userstate_ibfk_2">
+    <End Role="city1" Type="testModel.Store.city1" Multiplicity="1" />
+    <End Role="userstate" Type="testModel.Store.userstate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="city1">
+        <PropertyRef Name="cityid" />
+      </Principal>
+      <Dependent Role="userstate">
+        <PropertyRef Name="cityid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

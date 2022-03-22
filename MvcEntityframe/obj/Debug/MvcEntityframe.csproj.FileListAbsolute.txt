@@ -1,0 +1,5 @@
+c:\users\octashop\documents\visual studio 2010\Projects\MvcEntityframe\MvcEntityframe\bin\MvcEntityframe.dll
+c:\users\octashop\documents\visual studio 2010\Projects\MvcEntityframe\MvcEntityframe\bin\MvcEntityframe.pdb
+c:\users\octashop\documents\visual studio 2010\Projects\MvcEntityframe\MvcEntityframe\obj\Debug\MvcEntityframe.dll
+c:\users\octashop\documents\visual studio 2010\Projects\MvcEntityframe\MvcEntityframe\obj\Debug\MvcEntityframe.pdb
+C:\Users\octashop\Documents\Visual Studio 2010\Projects\MvcEntityframe\MvcEntityframe\obj\Debug\MvcEntityframe.csprojResolveAssemblyReference.cache

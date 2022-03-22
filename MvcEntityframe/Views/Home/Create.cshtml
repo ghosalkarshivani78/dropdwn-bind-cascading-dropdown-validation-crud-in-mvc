@@ -1,0 +1,85 @@
+﻿@model  MvcEntityframe.Models.person
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="container mt-3">
+<div class="col-md-6">
+<form action="@Url.Action("Create", "Home")" method="post">
+  <div class="form-group">
+    <label>First Name</label>
+    @Html.TextBoxFor(x => x.firstname)
+    @Html.ValidationMessageFor(x => x.firstname)
+  </div>
+  <div class="form-group">
+    <label>Lastt Name</label>
+      @Html.TextBoxFor(x => x.lastname)
+      @Html.ValidationMessageFor(x => x.lastname)
+  </div>
+   <div class="form-group">
+    <label>Email</label>
+      @Html.TextBoxFor(x => x.email)
+      @Html.ValidationMessageFor(x => x.email)
+  </div>
+     <div class="form-group">
+    <label>Address</label>
+      @Html.TextBoxFor(x => x.address)
+      @Html.ValidationMessageFor(x => x.address)
+  </div>
+   <div class="form-group">
+    <label>Number</label>
+      @Html.TextBoxFor(x => x.number)
+      @Html.ValidationMessageFor(x => x.number)
+  </div>
+    <div class="form-group">
+    <label>State</label>    
+    
+   @Html.DropDownListFor(x => x.stateid, Model.states,"Select State", new { @class = "form-control" })
+      @Html.ValidationMessageFor(x => x.stateid)
+  </div>
+   <div class="form-group">
+    <label>City</label>    
+    
+   @Html.DropDownListFor(x => x.cityid, Model.cities,new { @class = "form-control" })
+      @Html.ValidationMessageFor(x => x.cityid)
+  </div>
+  <input type="submit" value="Insert" class="btn btn-primary"/>
+  </form>
+<label style="color:red;"> @ViewBag.Message</label>
+</div>
+</div>
+
+<script type="text/javascript" src="../../Scripts/jquery-1.4.4.min.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var ddlstates = $('#stateid');
+        var ddlCities = $('#cityid');
+
+        ddlstates.change(function () {
+            //alert(ddlcountries.val());
+            $.ajax({
+                url: '/Home/GetcityByStateId',
+                method: 'get',
+                data: { stateid: $(this).val() },
+                dataType: 'json',
+                success: function (data) {
+                    ddlCities.empty();
+                    ddlCities.append($('<option/>', { value: "", text: 'Select States' }));
+                    $(data).each(function (index, item) {
+                        ddlCities.append($('<option/>', { value: item.Value, text: item.Text }));
+                    });
+                }
+            });
+        });
+
+   
+
+
+    });
+
+</script>
+
+
+
+
